@@ -565,6 +565,7 @@ class HNComments {
         c.unVoteUrl = decodedString;
         commentEl.querySelector('a.unvote').href = c.unVoteUrl;
 
+        c.voteValue = 1;
         HN.upvoteUserData(authorEl.textContent, 1);
         upvoterEl.classList.add('voted');
         downvoterEl.classList.add('voted');
@@ -576,12 +577,43 @@ class HNComments {
       httpRequest.send();
     }, true);
 
+    // ajax downvotes and decrements user-specific upvote data
+    commentEl.querySelector('a.downvote').addEventListener('click', e => {
+      e.preventDefault();
+      var httpRequest = new XMLHttpRequest();
+      httpRequest.onload = function(e) {
+        // after downvoting, retrieve new unvote link from response
+        var regex_str = "vote\\?id=" + commentEl.id + "&amp;how=un.*?'";
+        var regex = new RegExp(regex_str)
+        var unVoteUrl = httpRequest.responseText.match(regex)[0].slice(0, -1);
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + unVoteUrl,
+            'text/html');
+        var decodedString = dom.body.textContent;
+        c.unVoteUrl = decodedString;
+        commentEl.querySelector('a.unvote').href = c.unVoteUrl;
+
+        c.voteValue = -1;
+        HN.upvoteUserData(authorEl.textContent, -1);
+        upvoterEl.classList.add('voted');
+        downvoterEl.classList.add('voted');
+        voteblockEl.classList.add('voted');
+        unvoterEl.classList.add('voted');
+        unvoterEl.style.backgroundImage = 'url(' + unvoteImg + ')'
+      };
+      httpRequest.open('GET', c.downVoteUrl, true);
+      httpRequest.send();
+    }, true);
+
     // ajax unvote
     commentEl.querySelector('a.unvote').addEventListener('click', e => {
       e.preventDefault();
       var httpRequest = new XMLHttpRequest();
       httpRequest.onload = function(e) {
-        HN.upvoteUserData(authorEl.textContent, -1);
+        // undo whichever vote was cast in this page session; default to an upvote
+        HN.upvoteUserData(authorEl.textContent, -(c.voteValue || 1));
+        c.voteValue = 0;
         // only show up/down vote if we receive urls (for logged out users or low karma)
         if (c.upVoteUrl) upvoterEl.classList.remove('voted');
         if (c.downVoteUrl) downvoterEl.classList.remove('voted');
