@@ -1,8 +1,20 @@
 #!/bin/bash
+# Build distributable extension packages in ./dist
+set -euo pipefail
+cd "$(dirname "$0")"
 
-#package for firefox
-zip -r -FS ../HNES-firefox.zip * -x \*.git\* *screenshots\* *notes* *zip.sh* js/jquery-3.2.1.js
+VERSION=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
+SLUG=$(python3 -c "import json,re; n=json.load(open('manifest.json'))['name']; print(re.sub(r'[^a-z0-9]+', '-', n.lower()).strip('-'))")
+mkdir -p dist
+rm -f "dist/$SLUG-firefox-$VERSION.zip" "dist/$SLUG-chrome-$VERSION.zip"
 
-#package for chrome web store
-cd ..
-zip -r -FS HNES-chrome.zip HNES -x \*.git\* *screenshots* HNES/notes HNES/zip.sh HNES/js/jquery-3.2.1.js
+# Firefox / addons.mozilla.org: manifest.json must be at the root of the zip.
+zip -r -X "dist/$SLUG-firefox-$VERSION.zip" . \
+  -x '.git/*' '.gitignore' 'dist/*' 'screenshots/*' 'notes' 'zip.sh' 'js/jquery-3.2.1.js' '.DS_Store' '*/.DS_Store'
+
+# Chrome web store. Chrome ignores browser_specific_settings, so the same
+# package contents work for both stores.
+cp "dist/$SLUG-firefox-$VERSION.zip" "dist/$SLUG-chrome-$VERSION.zip"
+
+echo "Built:"
+ls -lh dist/*.zip

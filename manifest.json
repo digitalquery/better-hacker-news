@@ -1,9 +1,18 @@
 {
-    "name": "Hacker News Enhancement Suite",
-    "short_name": "HNES",
-    "version": "1.6.0.3",
-    "description": "Hacker News Enhanced.",
+    "name": "Better Hacker News",
+    "short_name": "Better HN",
+    "version": "1.0",
+    "description": "A modern interface for Hacker News: collapsible comments, user tags and scores, keyboard shortcuts, and more.",
     "manifest_version": 2,
+    "homepage_url": "https://github.com/anugupta/HNES",
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "better-hacker-news@anugupta.github.io",
+        "data_collection_permissions": {
+          "required": ["none"]
+        }
+      }
+    },
     "background": {
       "scripts": ["background.js"]
     },

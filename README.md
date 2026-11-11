@@ -1,10 +1,9 @@
-Warning: Unmaintained
-============
-I don't have much desire to keep maintaining this project, so please don't create pull requests for any new features or anything which is not a bug or regression.
+Better Hacker News
+==================
 
-
-Hacker News Enhancement Suite
-=============================
+A fork of Hacker News Enhancement Suite (HNES), updated to work with current
+Hacker News markup. HNES was originally created by Chris James (etcet) and is
+no longer maintained upstream.
 
 A Hacker News extension for Firefox and Chrome which changes lots of things.
 
@@ -35,13 +34,9 @@ Features
   * b - Open both the comments and the story in new tabs
 * Tag users
 
-Firefox AMO link
-----------------
-https://addons.mozilla.org/en-US/firefox/addon/hnes/
-
-Chrome web store link
----------------------
-https://chrome.google.com/webstore/detail/bappiabcodbpphnojdiaddhnilfnjmpm
+Install
+-------
+Firefox: https://addons.mozilla.org/firefox/addon/better-hacker-news/
 
 TODO
 ----
