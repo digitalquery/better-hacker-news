@@ -63,7 +63,7 @@ var InlineReply = {
       $(this).attr("value","Posting...");
       //Add loading spinner
       image = $('<img style="vertical-align:middle;margin-left:5px;"/>');
-      image.attr('src',chrome.extension.getURL("images/spin.gif"));
+      image.attr('src',chrome.runtime.getURL("images/spin.gif"));
       $(this).after(image);
       //Post
       InlineReply.postCommentTo(link, domain, text, $(this));
@@ -261,7 +261,7 @@ var CommentTracker = {
   }
 }
 
-var unvoteImg = chrome.extension.getURL("images/unvote.gif");
+var unvoteImg = chrome.runtime.getURL("images/unvote.gif");
 
 class HNComments {
   constructor(storyId) {
@@ -354,7 +354,7 @@ class HNComments {
     nodeList[0] = { id: 'root', level: 0, children: [] };
 
     // record the OP so we can color their name orange
-    const original_poster_el = document.querySelector('.subtext .hnuser'),
+    const original_poster_el = document.querySelector('.subtext a[href^="user?id="]'),
           original_poster = original_poster_el ? original_poster_el.textContent : '';
     if (original_poster_el) {
       original_poster_el.classList.add('original_poster');
@@ -377,7 +377,7 @@ class HNComments {
         ageEl = t.querySelector('.age a'),
         age = ageEl ? ageEl.textContent : '',
         permalinkUrl = ageEl ? ageEl.href : '',
-        userEl = t.querySelector('a.hnuser'),
+        userEl = t.querySelector('.comhead a[href^="user?id="]'), // HN dropped the .hnuser class
         username = userEl ? userEl.textContent : '',
         userUrl = userEl ? userEl.href : '',
         commentEl = t.querySelector('div.comment'),
@@ -462,7 +462,7 @@ class HNComments {
 
     c.el = commentEl;
 
-    tagImageEl.src = chrome.extension.getURL('/images/tag.svg');
+    tagImageEl.src = chrome.runtime.getURL('images/tag.svg');
 
     commentEl.id = c.id;
     commentEl.classList.add(`level-${oddOrEven}`);
