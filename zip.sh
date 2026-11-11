@@ -10,7 +10,7 @@ rm -f "dist/$SLUG-firefox-$VERSION.zip" "dist/$SLUG-chrome-$VERSION.zip"
 
 # Firefox / addons.mozilla.org: manifest.json must be at the root of the zip.
 zip -r -X "dist/$SLUG-firefox-$VERSION.zip" . \
-  -x '.git/*' '.gitignore' 'dist/*' 'screenshots/*' 'notes' 'zip.sh' 'js/jquery-3.2.1.js' '.DS_Store' '*/.DS_Store'
+  -x '.git/*' '.gitignore' 'AGENTS.md' 'dist/*' 'screenshots/*' 'notes' 'zip.sh' 'js/jquery-3.2.1.js' '.DS_Store' '*/.DS_Store'
 
 # Chrome web store. Chrome ignores browser_specific_settings, so the same
 # package contents work for both stores.
