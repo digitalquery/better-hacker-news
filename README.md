@@ -40,6 +40,10 @@ Firefox: https://addons.mozilla.org/firefox/addon/better-hacker-news/
 
 Source: https://github.com/digitalquery/better-hacker-news
 
+Changelog
+---------
+What changed in each release: [CHANGELOG.md](CHANGELOG.md).
+
 
 License
 -------

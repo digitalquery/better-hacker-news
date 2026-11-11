@@ -14,7 +14,17 @@ Manifest V2 extension for Firefox/Chrome that rewrites Hacker News pages client-
 
 `./zip.sh` builds `dist/better-hacker-news-{firefox,chrome}-<version>.zip`. It derives the slug and version from `manifest.json` with `python3`, zips from the repo root (manifest must be at the zip root for AMO), then copies the Firefox zip as the Chrome one. `dist/` is gitignored. Bump `version` in `manifest.json` for a release.
 
-The zip excludes only an explicit list (`.git`, `dist`, `screenshots`, `notes`, `zip.sh`, non-minified jQuery); any new root-level file, including this one, ships to users. Keep additions small and don't put scratch files at the root.
+The zip excludes only an explicit list (`.git`, `dist`, `screenshots`, `notes`, `zip.sh`, `AGENTS.md`, `CHANGELOG.md`, non-minified jQuery); any new root-level file, including this one, ships to users. Keep additions small and don't put scratch files at the root.
+
+## Changelog and releases
+
+`CHANGELOG.md` is the source of truth for what changed in each version. It follows Keep a Changelog with an empty `## [Unreleased]` heading at the top.
+
+- **When making a user-visible change**, add a bullet to `## [Unreleased]` in the same commit. Docs, refactors and internal changes are not listed.
+- **To cut a release**: move the `Unreleased` bullets into a new `## [<version>] - <date>` section, bump `version` in `manifest.json`, then `./zip.sh`.
+- Tag the commit the zips were built from (`git tag v<version>`) and publish it with `gh release create v<version>` using the changelog section as the notes and both `dist/` zips as assets. That page is the public record of the release.
+- Paste the same notes into the version's release-notes field on addons.mozilla.org: AMO is where most users see them, and a GitHub release is invisible from there.
+- Never re-use a version number: AMO rejects re-uploading a version that already exists, so a rebuild always needs a bump.
 
 Do not change `browser_specific_settings.gecko.id` (`better-hacker-news@digitalquery.github.io`); AMO keys the listing to it.
 
