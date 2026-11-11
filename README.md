@@ -38,6 +38,8 @@ Install
 -------
 Firefox: https://addons.mozilla.org/firefox/addon/better-hacker-news/
 
+Source: https://github.com/digitalquery/better-hacker-news
+
 TODO
 ----
 * Options page
