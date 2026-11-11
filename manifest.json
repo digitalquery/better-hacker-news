@@ -1,7 +1,7 @@
 {
     "name": "Better Hacker News",
     "short_name": "Better HN",
-    "version": "1.0",
+    "version": "1.1",
     "description": "A modern interface for Hacker News: collapsible comments, user tags and scores, keyboard shortcuts, and more.",
     "manifest_version": 2,
     "homepage_url": "https://github.com/digitalquery/better-hacker-news",
